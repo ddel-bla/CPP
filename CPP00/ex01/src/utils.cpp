@@ -1,35 +1,5 @@
 #include "../inc/phonebook.hpp"
 
-void PrintBook(PhoneBook *contacts, int i) {
-	std::cout << contacts[i].GetContactIndex() << PIPE;
-	ShortPrint(contacts[i].GetContactData().GetFirstName());
-	std::cout << PIPE;
-	ShortPrint(contacts[i].GetContactData().GetLastName());
-	std::cout << PIPE;
-	ShortPrint(contacts[i].GetContactData().GetNickName());
-	std::cout << PIPE << std::endl;
-}
-
-void PrintContactDetails(PhoneBook *contacts, int max) {
-	std::string str;
-	std::string input;
-	int index;
-
-	std::cout << CHOOSE_INDEX;
-	std::getline(std::cin, input);
-	std::stringstream ss(input);
-	ss >> str;
-	index = std::atoi(str.c_str());
-	if (IndexCheck(str) == 0 && (index < 9 && index > 0) && index <= max) {
-		std::cout << FN << contacts[index - 1].GetContactData().GetFirstName() << std::endl;
-		std::cout << LN << contacts[index - 1].GetContactData().GetLastName() << std::endl;
-		std::cout << NN << contacts[index - 1].GetContactData().GetNickName() << std::endl;
-		std::cout << PN << contacts[index - 1].GetContactData().GetPhoneNumber() << std::endl;
-		std::cout << DS << contacts[index - 1].GetContactData().GetDarkestSecret() << std::endl;
-	} else
-		std::cerr << OUT_OF_RANGE << std::endl;
-}
-
 int IsAllNum(std::string number) {
 	for (unsigned long i = 0; i < number.length(); i++)
 		if (number[i] < '0' || number[i] > '9') {

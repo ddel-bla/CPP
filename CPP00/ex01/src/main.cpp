@@ -23,12 +23,12 @@ int main(int argc, char **argv) {
 		else if (option == "SEARCH")
 			FindContactToPrint(contacts, max);
 		else if (option == "EXIT")
-			break ;
+			break;
 		else {
 			std::cerr << INVALID_OPTION << option << std::endl;
 			std::cout << AVAILABLE << ADD << SEARCH << EXIT << std::endl;
 		}
 	}
-	std::cout << OUT << std::endl;
-	return (0);
+	std::cout << YOU_LEFT << std::endl;
+	return 0;
 }

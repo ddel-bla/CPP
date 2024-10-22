@@ -2,43 +2,48 @@
 #ifndef PHONEBOOK_HPP
 #define PHONEBOOK_HPP
 
+
 // CONTACT LIST
-#define PIPE "|"
-#define CONTACT_FN "FIRST NAME"
-#define CONTACT_LN " LAST NAME"
-#define CONTACT_NN " NICK NAME"
-#define CONTACTS "             CONTACTS             "
+#define PIPE "\033[1;33m|\033[0m"
+#define CONTACT_FN "\033[1;4;31mFIRST NAME"
+#define CONTACT_LN "\033[1;4;31m LAST NAME"
+#define CONTACT_NN "\033[1;4;31m NICK NAME"
+#define CONTACTS " \033[1;4;33m             CONTACTS             \033[0m"
 
 // ERRORS AND INPUT REQUESTS
-#define NO_CONTACT "No Contact Found!\n"
-#define INVALID_INDEX "Invalid Index!\n"
-#define INVALID_OPTION "Invalid option: "
-#define NO_ARG "This program doesn't take any arguments"
-#define INVALID_INPUT "Empty string is not a valid input"
-#define OUT_OF_RANGE "The Requested Index Is Out Of Range"
-#define INPUT_REQUIRED "Input is required in every field."
-#define WRONG_PHONE_NUMBER "Error! Phone Number Should Contain Only Numbers!\n"
-
-// SET CONTACT COLORS
-#define AVAILABLE "The available options are:\n"
-#define CHOOSE_INDEX "Choose One Index:	"
-#define CHOOSE_OPTION "Choose an Option:	"
-#define ADD "ADD    -> Add a new contact to the phonebook.\n"
-#define SEARCH "SEARCH -> Search for an index from 1-8 in the phonebook.\n"
-#define EXIT "EXIT   -> Quit the program."
-#define ENTER_FN "Enter Your First Name:	"
-#define ENTER_LN "Enter Your Last Name:	"
-#define ENTER_NN "Enter Your Nick Name:	"
-#define ENTER_PN "Enter Your Phone Number:	"
-#define ENTER_DS "Enter Your Darkest Secret:	"
-#define OUT "bye :-)"
+#define NO_CONTACT "\033[1;31mNo Contact Found!\033[0m\n"
+#define INVALID_INDEX "\033[1;31mInvalid Index!\033[0m\n"
+#define INVALID_OPTION "\033[1;31mInvalid option: \033[0m"
+#define CHOOSE_INDEX "\033[1;34mChoose One Index:	\033[0m"
+#define CHOOSE_OPTION "\033[1;4;33mChoose an Option:\033[0m	"
+#define AVAILABLE "\033[1;32mThe available options are:\n\033[0m"
+#define NO_ARG "\033[1;31mThis program doesn't take any arguments\033[0m"
+#define INVALID_INPUT "\033[1;31mEmpty string is not a valid input\033[0m"
+#define OUT_OF_RANGE "\033[1;31mThe Requested Index Is Out Of Range\033[0m"
+#define INPUT_REQUIRED "\033[1;31mInput is required in every field.\033[0m"
+#define EXIT "\033[1;33mEXIT   \033[1;34m-> \033[1;37mQuit the program.\033[0m"
+#define WRONG_PHONE_NUMBER "\033[1;31mError! Phone Number Should Contain Only Numbers!\033[0m\n"
+#define ADD "\033[1;33mADD    \033[1;34m-> \033[1;37mAdd a new contact to the phonebook.\n\033[0m"
+#define SEARCH                                                                     \
+	"\033[1;33mSEARCH \033[1;34m-> \033[1;37mSearch for an index from 1-8 in the " \
+	"phonebook.\n\033[0m"
 
 // GET CONTACT COLORS
-#define FN "First Name	:	"
-#define LN "Last Name	:	"
-#define NN "Nick Name	:	"
-#define PN "Phone Number	:	"
-#define DS "Darkest Secret	:	"
+#define ENTER_FN "\033[1;34mEnter Your First Name:	\033[0m"
+#define ENTER_LN "\033[1;34mEnter Your Last Name:	\033[0m"
+#define ENTER_NN "\033[1;34mEnter Your Nick Name:	\033[0m"
+#define ENTER_PN "\033[1;34mEnter Your Phone Number:	\033[0m"
+#define ENTER_DS "\033[1;34mEnter Your Darkest Secret:	\033[0m"
+
+// PRINTED CONTACT COLORS
+#define FN "\033[1;96mFirst Name	:	\033[0m\033[1;30m"
+#define LN "\033[1;96mLast Name	:	\033[0m\033[1;30m"
+#define NN "\033[1;96mNick Name	:	\033[0m\033[1;30m"
+#define PN "\033[1;96mPhone Number	:	\033[0m\033[1;30m"
+#define DS "\033[1;96mDarkest Secret	:	\033[0m\033[1;30m"
+
+// MISC
+#define YOU_LEFT "You throwed my awesome phonebook out of the window.."
 
 #include <cstdlib>
 #include <iostream>

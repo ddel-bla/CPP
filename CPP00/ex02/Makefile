@@ -1,11 +1,11 @@
-NAME	= megaphone
+NAME	= Account
 CFLAGS	= -Wall -Wextra -Werror -std=c++98
 RM		= rm -rf
 CC		= c++
 SRC_DIR = src/
 OBJ_DIR = obj/
 
-SRC		=	test \
+SRC		=	tests \
 			account
 
 SRCS	= $(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC)))

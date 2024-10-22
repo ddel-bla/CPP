@@ -1,4 +1,6 @@
-#include "../inc/account.hpp"
+#include <iostream>
+#include <ctime>
+#include "Account.hpp"
 
 // INITIALIZE VALUES
 int Account::_nbAccounts = 0;
@@ -53,20 +55,22 @@ void Account::makeDeposit(int deposit) {
 
 bool Account::makeWithdrawal(int withdrawal) {
 	_displayTimestamp();
-	std::cout << " index:" << _accountIndex << ";";
-	std::cout << "p_amount:" << _amount << ";";
-	std::cout << "deposit:" << withdrawal << ";";
-	if (withdrawal > _amount) {
-			std::cout << "withdrawal:refused" << std::endl;
-			return 1;
+	std::cout << " index:" << this->_accountIndex << ";p_amount:" << this->checkAmount();
+	if (withdrawal <= this->checkAmount())
+	{
+		std::cout << ";withdrawal:" << withdrawal << ";";
+		this->_amount -= withdrawal;
+		this->_nbWithdrawals++;
+		std::cout << "amount:" << this->checkAmount() << ";nb_withdrawals:" << this->_nbWithdrawals << std::endl;
+		Account::_totalNbWithdrawals++;
+		Account::_totalAmount -= withdrawal;
+		return (1);
 	}
-	_amount -= withdrawal;
-	_nbWithdrawals++;
-	_totalNbWithdrawals++;
-	_totalAmount -= withdrawal;
-	std::cout << "amount:" << _amount << ";";
-	std::cout << "nb_withdrawals:" << _nbWithdrawals << std::endl;
-	return true;
+	else
+	{
+		std::cout << ";withdrawal:" << "refused" << std::endl;
+		return (0);
+	}
 }
 
 Account::Account() {}
