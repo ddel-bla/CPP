@@ -14,17 +14,16 @@ int main(int argc, char **argv) {
 	int max = 0;
 	std::string option;
 
-	while (true) {
-		if (std::cin.eof()) break;
+	while (!std::cin.eof()) {
 		std::cout << CHOOSE_OPTION;
 		getline(std::cin, option);
-		if (option == "ADD")
+		if (option == "ADD") {
 			max = AddNewContact(contacts, max);
-		else if (option == "SEARCH")
+		} else if (option == "SEARCH") {
 			FindContactToPrint(contacts, max);
-		else if (option == "EXIT")
+		} else if (option == "EXIT") {
 			break;
-		else {
+		} else {
 			std::cerr << INVALID_OPTION << option << std::endl;
 			std::cout << AVAILABLE << ADD << SEARCH << EXIT << std::endl;
 		}
@@ -32,3 +31,4 @@ int main(int argc, char **argv) {
 	std::cout << YOU_LEFT << std::endl;
 	return 0;
 }
+

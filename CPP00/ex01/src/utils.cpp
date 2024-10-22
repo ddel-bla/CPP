@@ -17,7 +17,7 @@ void ShortPrint(std::string contact_details) {
 	if (max_char > 0)
 		for (int j = 0; j < max_char; j++)
 			std::cout << "\033[1;4;37m"
-					  << " ";
+					  << SPACE;
 	while (contact_details[i] && i < 9 && (i + max_char < 9)) {
 		std::cout << "\033[1;4;37m" << contact_details[i];
 		i++;

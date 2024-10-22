@@ -4,6 +4,7 @@
 
 
 // CONTACT LIST
+#define SPACE "\033[1;33m \033[0m"
 #define PIPE "\033[1;33m|\033[0m"
 #define CONTACT_FN "\033[1;4;31mFIRST NAME"
 #define CONTACT_LN "\033[1;4;31m LAST NAME"
