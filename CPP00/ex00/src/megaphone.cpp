@@ -15,7 +15,7 @@ int	main(int argc, char **argv)
 			s[k] = std::toupper(s.at(k));
 		std::cout << s;
 		if (i < argc - 1)
-			std::cout << " ";
+			std::cout << SPACE;
 	}
 	return (std::cout << std::endl, 0);
 }
