@@ -16,16 +16,15 @@ void ShortPrint(std::string contact_details) {
 	max_char = max_char - len;
 	if (max_char > 0)
 		for (int j = 0; j < max_char; j++)
-			std::cout << "\033[1;4;37m"
-					  << SPACE;
+			std::cout << "\033[1;4;37m" << SPACE "\033[0m";
 	while (contact_details[i] && i < 9 && (i + max_char < 9)) {
-		std::cout << "\033[1;4;37m" << contact_details[i];
+		std::cout << "\033[1;4;37m" << contact_details[i] << "\033[0m";
 		i++;
 	}
 	if (contact_details[i + 1])
-		std::cout << "\033[1;4;37m" << '.';
+		std::cout << "\033[1;4;37m" << '.' << "\033[0m";
 	else
-		std::cout << "\033[1;4;37m" << contact_details[i];
+		std::cout << "\033[1;4;37m" << contact_details[i] << "\033[0m";
 }
 
 int IndexCheck(std::string index) {

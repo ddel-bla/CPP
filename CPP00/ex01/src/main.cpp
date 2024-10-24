@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
 			std::cout << AVAILABLE << ADD << SEARCH << EXIT << std::endl;
 		}
 	}
-	std::cout << YOU_LEFT << std::endl;
+	std::cout << EXITING << std::endl;
 	return 0;
 }
 

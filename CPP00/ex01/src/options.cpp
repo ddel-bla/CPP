@@ -25,8 +25,7 @@ void FindContactToPrint(PhoneBook *contacts, int max) {
 	else {
 		std::cout << std::endl;
 		std::cout << CONTACTS << std::endl;
-		std::cout << SPACE << PIPE << CONTACT_FN << PIPE << CONTACT_LN << PIPE << CONTACT_NN << PIPE
-				  << std::endl;
+		std::cout << SPACE << PIPE << CONTACT_FN << PIPE << CONTACT_LN << PIPE << CONTACT_NN << PIPE << std::endl;
 		for (int k = 0; k < max; k++) PrintBook(contacts, k);
 		std::cout << std::endl;
 		PrintContactDetails(contacts, max);
