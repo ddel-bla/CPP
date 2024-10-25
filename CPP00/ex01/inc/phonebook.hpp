@@ -5,11 +5,10 @@
 // CONTACT LIST
 #define SPACE " "
 #define PIPE "|"
-#define CONTACT_FN "FIRST NAME"
-#define CONTACT_LN " LAST NAME"
-#define CONTACT_NN " NICK NAME"
-#define CONTACTS "             CONTACTS             "
-
+#define CONTACT_FN "\033[1;4;37mFIRST NAME\033[0m"
+#define CONTACT_LN "\033[1;4;37m LAST NAME\033[0m"
+#define CONTACT_NN "\033[1;4;37m NICK NAME\033[0m"
+#define CONTACTS " \033[1;4;37m            CONTACTS             \033[0m"
 // ERRORS AND INPUT REQUESTS
 #define NO_CONTACT "No Contact Found!\n"
 #define INVALID_INDEX "Invalid Index!\n"
