@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
 	{
 		Weapon club = Weapon(C_CLUB);
 		HumanB jim("Jim");
-		jim.Attack();
+		//jim.Attack();
 		jim.SetWeapon(club);
 		jim.Attack();
 		club.SetType(O_CLUB);
