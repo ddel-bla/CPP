@@ -19,18 +19,31 @@ class Fixed {
 	public:
 		Fixed(void);
 		Fixed(Fixed const &number);
+		Fixed &operator=(Fixed const &number);
+		~Fixed(void);
 		Fixed(int const number);
 		Fixed(float const number);
-		~Fixed(void);
-		Fixed	&operator=(Fixed const &number);
-		int		getRawBits(void) const;
-		void	setRawBits(int const raw);
-		int		toInt(void) const;
-		float	toFloat(void) const;
+		int toInt(void) const;
+		float toFloat(void) const;
+		int getRawBits(void) const;
+		void setRawBits(int const raw);
+
+		Fixed operator+(Fixed const &number) const;
+		Fixed operator-(Fixed const &number) const;
+		Fixed operator*(Fixed const &number) const;
+		Fixed operator/(Fixed const &number) const;
+		Fixed operator++(int);
+		Fixed operator--(int);
+		Fixed &operator++(void);
+		Fixed &operator--(void);
+		static Fixed &max(Fixed &a, Fixed &b);
+		static Fixed &min(Fixed &a, Fixed &b);
+		static Fixed const &max(Fixed const &a, const Fixed &b);
+		static Fixed const &min(Fixed const &a, const Fixed &b);
 
 	private:
-		int 				_fixed;
-		static const int	_fractional = 8;
+			int _fixed;
+			static const int _fractional = 8;
 };
 
 std::ostream &operator<<(std::ostream &os, const Fixed &fixed_num);
