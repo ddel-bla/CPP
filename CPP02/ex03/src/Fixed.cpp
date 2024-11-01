@@ -1,4 +1,4 @@
-#include "../includes/Point.hpp"
+#include "../inc/Point.hpp"
 
 Fixed::Fixed() : _fixed(0) {}
 

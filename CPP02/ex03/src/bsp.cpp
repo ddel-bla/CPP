@@ -1,4 +1,4 @@
-#include "../includes/Point.hpp"
+#include "../inc/Point.hpp"
 
 bool bsp(Point const& point, Point const& a, Point const& b, Point const& c) {
 	int point_pos_ab = point.point_position(a, b);

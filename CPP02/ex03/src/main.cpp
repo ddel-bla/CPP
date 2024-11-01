@@ -1,4 +1,4 @@
-#include "../includes/Point.hpp"
+#include "../inc/Point.hpp"
 
 static void print_result(int result) {
 	if (result == true)
