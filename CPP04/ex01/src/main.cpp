@@ -18,6 +18,19 @@ static void subject() {
 	std::cout << std::endl;
 }
 
+static void deepTest() {
+
+	Brain originalBrain;
+	originalBrain.setIdea(0, "Inicial");
+
+	Brain copiedBrain = originalBrain;
+	std::cout << "* Original: " << originalBrain.getIdea(0) << std::endl;
+	std::cout << "* Copied  : " << copiedBrain.getIdea(0) << std::endl;
+	originalBrain.setIdea(0, "Modificada");
+	std::cout << "* Original: " << originalBrain.getIdea(0) << std::endl;
+	std::cout << "* Copied  : " << copiedBrain.getIdea(0) << std::endl;
+}
+
 static void Zoo() {
 	Animal *animals[ARRAY_LENGTH];
 	for (int i = 0; i < ARRAY_LENGTH; i++) {
@@ -32,7 +45,9 @@ static void Zoo() {
 }
 
 int main(void) {
-	subject();
 	Zoo();
+	deepTest();
+	std::cout << std::endl;
+	subject();
 	return 0;
 }

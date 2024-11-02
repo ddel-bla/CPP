@@ -9,22 +9,26 @@ Brain::Brain(Brain const &rhs) {
 
 Brain::~Brain() { std::cout << "Brain" << DESTRUCTOR << std::endl; }
 
-/*
-deep copy
-duplicate the entire object
-thread safe copies
-ensures that the object hierarchy is stays the same
-shallow -> only top level attributes are copied
-*/
 Brain &Brain::operator=(Brain const &rhs) {
 	std::cout << "Brain" << ASSIGNMENT << std::endl;
-	if (this != &rhs) {
-		IdeaIndex = rhs.IdeaIndex;
-		for (int i = 0; i < IdeaIndex; i++) 
-			ideas[i] = rhs.ideas[i];
-		for (int i = IdeaIndex; i < IDEAS; i++) 
-			ideas[i].clear();
-	}
-	return *this;
+    if (this != &rhs) {
+        IdeaIndex = rhs.IdeaIndex;
+        for (int i = 0; i < IDEAS; i++) { // Copiar todos los elementos del array
+            ideas[i] = rhs.ideas[i];
+        }
+    }
+    return *this;
 }
 
+void Brain::setIdea(int index, const std::string &idea) {
+	if (index >= 0 && index < IDEAS) {
+		ideas[index] = idea;
+	}
+}
+
+std::string Brain::getIdea(int index) const {
+	if (index >= 0 && index < IDEAS) {
+		return ideas[index];
+	}
+	return "";
+}
