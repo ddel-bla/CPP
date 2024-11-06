@@ -2,15 +2,17 @@
 
 DiamondTrap::DiamondTrap() : ClapTrap("defClapTrap"), ScavTrap(), FragTrap(), _name("Default") {
 	std::cout << DT << CONSTRUCTOR << std::endl;
-	ScavTrap itsAWrap;
-	EnergyPoints = itsAWrap.getPoints();
+	HitPoints = FragTrap::HitPoints;
+	EnergyPoints = ScavTrap::EnergyPoints;
+	AttackDamage = ScavTrap::AttackDamage;
 }
 
 DiamondTrap::DiamondTrap(std::string const &name)
 	: ClapTrap(name + "_clap_trap"), ScavTrap(), FragTrap(), _name(name) {
 	std::cout << DT << name << CONSTRUCTOR << std::endl;
-	ScavTrap itsAWrap;
-	EnergyPoints = itsAWrap.getPoints();;
+	HitPoints = FragTrap::HitPoints;
+	EnergyPoints = ScavTrap::EnergyPoints;
+	AttackDamage = ScavTrap::AttackDamage;
 }
 
 DiamondTrap::DiamondTrap(DiamondTrap const &rhs)
