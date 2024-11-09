@@ -5,6 +5,8 @@
 #include <iostream>
 #include <iterator>
 #include <vector>
+#include <cstdlib> // Para std::srand
+#include <ctime>   // Para std::time
 
 #define NSPF "No span can be found."
 #define INVS "Invalid size has been passed to span, it must be 1 or above."
@@ -25,8 +27,7 @@ class Span {
 		void addNumber(int number);
 		void fillSpan();
 		void fillSpanSmartWay(int startValue, int endValue);
-		void fillSpanDumbWay(std::vector<int>::iterator const &start,
-							std::vector<int>::iterator const &end);
+		void fillSpanDumbWay(std::vector<int>::iterator const &start, std::vector<int>::iterator const &end);
 		int size();
 
 		template <typename Iterate>
@@ -34,22 +35,18 @@ class Span {
 			if (spanSize < numbers.size() + end - begin) throw spanAlreadyFullException();
 			numbers.insert(numbers.end(), begin, end);
 		}
-
 		class noSpanFoundException : public std::exception {
-		public:
-			const char *what() const throw();
+			public:
+				const char *what() const throw();
 		};
-
 		class spanAlreadyFullException : public std::exception {
-		public:
-			const char *what() const throw();
+			public:
+				const char *what() const throw();
 		};
-
 		class spanInvalidSizeException : public std::exception {
-		public:
-			const char *what() const throw();
+			public:
+				const char *what() const throw();
 		};
-
 };
 
 unsigned long long getCurrentTimeMicros();

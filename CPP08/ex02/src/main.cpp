@@ -1,21 +1,5 @@
 #include "../inc/MutantStack.hpp"
 
-static void AvailableTestCases() { std::cout << BAD_INPUT << TEST1 << TEST2 << std::endl; }
-
-static int GetId(int argc, char **argv, int TestCaseId) {
-	if (argc > 1) {
-		int input = std::atoi(argv[1]);
-		if (input < 1 || input > 2) return AvailableTestCases(), exit(1), 1;
-		for (int i = 1; i >= 0; i++) {
-			if (i == input) {
-				TestCaseId = i;
-				return TestCaseId;
-			}
-		}
-	}
-	return TestCaseId;
-}
-
 #define ELEMENT 42
 
 void findAnElement() {
@@ -96,7 +80,32 @@ void findAnElement() {
 	std::stack<int> s(mstack);
 }
 
-void testFromFile() {
+#include <list>
+
+void subject_list() {
+    std::list<int> mstack; // Usa std::list en lugar de MutantStack
+
+    mstack.push_back(5); // Equivalente a push()
+    mstack.push_back(17);
+    std::cout << "StackTop: " << mstack.back() << std::endl; // Equivalente a top()
+    mstack.pop_back(); // Equivalente a pop()
+    std::cout << "StackSize: " << mstack.size() << std::endl;
+
+    mstack.push_back(3);
+    mstack.push_back(5);
+    mstack.push_back(737);
+    mstack.push_back(0);
+    std::list<int>::iterator it = mstack.begin();
+    std::list<int>::iterator ite = mstack.end();
+    ++it;
+    --it;
+    while (it != ite) {
+        std::cout << *it << std::endl;
+        ++it;
+    }
+}
+
+void subject() {
 	MutantStack<int> mstack;
 	mstack.push(5);
 	mstack.push(17);
@@ -119,19 +128,10 @@ void testFromFile() {
 	std::stack<int> s(mstack);
 }
 
-int main(int argc, char **argv) {
-	int TestCaseId = GetId(argc, argv, 0);
+int main(void) {
+	findAnElement();
+	//subject();
+	//subject_list();
 
-	switch (TestCaseId) {
-		case 1:
-			findAnElement();
-			break;
-		case 2:
-			testFromFile();
-			break;
-		default:
-			AvailableTestCases();
-			break;
-	}
 	return 0;
 }

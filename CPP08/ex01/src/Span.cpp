@@ -1,6 +1,6 @@
-#include "../includes/Span.hpp"
+#include "../inc/Span.hpp"
 
-/*__________________________________ CONSTRUCTORS / DESTRUCTOR __________________________________*/
+// CONSTRUCTORS / DESTRUCTOR
 
 Span::Span() : spanSize(0) {}
 
@@ -14,7 +14,7 @@ Span::Span(const unsigned int &nums) : spanSize(nums) {
 }
 Span::~Span() {}
 
-/*_____________________________________ OPERATOR OVERLOADS ______________________________________*/
+//___ OPERATOR OVERLOADS
 
 Span &Span::operator=(Span const &rhs) {
 	if (this != &rhs) {
@@ -24,13 +24,13 @@ Span &Span::operator=(Span const &rhs) {
 	return *this;
 }
 
-/*_______________________________________ NESTED CLASSES ________________________________________*/
+//_____ NESTED CLASSES
 
 const char *Span::noSpanFoundException::what() const throw() { return NSPF; }
 const char *Span::spanAlreadyFullException::what() const throw() { return SPAF; }
 const char *Span::spanInvalidSizeException::what() const throw() { return INVS; }
 
-/*__________________________________________ FUNCTIONS __________________________________________*/
+//________ FUNCTIONS ________//
 
 void Span::addNumber(int number) {
 	if (spanSize == numbers.size()) throw(spanAlreadyFullException());
@@ -54,12 +54,8 @@ void Span::fillSpanDumbWay(std::vector<int>::iterator const &startVal,
 		return;
 	}
 	std::srand(std::time(NULL));
-	// unsigned long long start = getCurrentTimeMicros();
-	numbers.reserve(endVal - startVal + 1);	 // Reserve space to avoid reallocations
+	numbers.reserve(endVal - startVal + 1);	
 	numbers.insert(numbers.end(), startVal, endVal);
-	// unsigned long long end = getCurrentTimeMicros();
-	// unsigned long long ms = end - start;
-	// std::cout << "Filling up the span took: " << ms << "ms." << std::endl;
 }
 
 void Span::fillSpanSmartWay(int startValue, int endValue) {
@@ -69,7 +65,7 @@ void Span::fillSpanSmartWay(int startValue, int endValue) {
 		return;
 	}
 	unsigned long long start = getCurrentTimeMicros();
-	numbers.reserve(endValue - startValue + 1);	 // Reserve space to avoid reallocations
+	numbers.reserve(endValue - startValue + 1);
 	int i = startValue + 1;
 	for (; i < endValue; ++i) numbers.insert(numbers.end(), rand() % RAND_MAX + 1);
 	unsigned long long end = getCurrentTimeMicros();
@@ -86,13 +82,13 @@ unsigned int Span::shortestSpan() {
 	unsigned int shortest = *(tmp.begin() + 1) - *(tmp.begin());
 	for (std::vector<int>::iterator i = tmp.begin(); i < tmp.end(); i++)
 		if ((unsigned int)(*(i + 1) - *i) < shortest) shortest = *(i + 1) - *i;
-	std::cout << "\033[1;32mThe shortest span is: \033[0;39m";
+	std::cout << "The shortest span is: ";
 	return shortest;
 }
 
 unsigned int Span::longestSpan() {
 	if (numbers.size() < 2) throw noSpanFoundException();
-	std::cout << "\033[1;32mThe longest span is: \033[0;39m";
+	std::cout << "The longest span is: ";
 	return *std::max_element(numbers.begin(), numbers.end()) -
 		   *std::min_element(numbers.begin(), numbers.end());
 }
