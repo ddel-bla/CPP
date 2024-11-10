@@ -6,9 +6,7 @@ SRC_DIR = src/
 OBJ_DIR = obj/
 
 SRC		= main \
-		  PmergeMe \
-		  Vector \
-		  Deque \
+		  PmergeMe.cpp
 
 SRCS	= $(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC)))
 OBJS	= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC)))

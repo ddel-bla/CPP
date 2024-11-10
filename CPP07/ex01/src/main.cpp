@@ -17,8 +17,6 @@ int main() {
 	char charArray[] = {'a', 'b', 'c', 'd', 'e'};
 	size_t charArrayLength = sizeof(charArray) / sizeof(char);
 
-	int tab[] = {0, 1, 2, 3, 4};
-
 	// Using iter with intArray
 	std::cout << "Iterating through an INT array:" << std::endl;
 	iter(intArray, intArrayLength, printNum<int>);

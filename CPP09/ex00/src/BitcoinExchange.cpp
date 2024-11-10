@@ -1,168 +1,120 @@
-#include "../includes/BitcoinExchange.hpp"
+#include "../inc/BitcoinExchange.hpp"
 
-/*__________________________________ CONSTRUCTORS / DESTRUCTOR __________________________________*/
-
-Bitcoin::Bitcoin() {
-	std::ifstream csvFile("./src/data.csv");
-	std::string line;
-
-	setMonths();
-	if (csvFile.is_open()) {
-		std::getline(csvFile, line);
-		if (csvFile.peek() == std::ifstream::traits_type::eof()) throw std::logic_error(CSVFAIL);
-		if (line.compare("date,exchange_rate") != 0) throw std::logic_error("invalid file header");
-		while (std::getline(csvFile, line))
-			csvDataBase.insert(std::make_pair(saveDate(line), saveRate(line)));
-		csvFile.close();
-		validDataBase();
-		return;
-	} else
-		throw std::logic_error(NODATA);
+Bitcoin::~Bitcoin() {
+	//std::cout << "Bitcoin destructor called" << std::endl;
 }
 
-Bitcoin::~Bitcoin() {}
-Bitcoin::Bitcoin(Bitcoin const &cpy) { *this = cpy; }
+Bitcoin::Bitcoin( void ): bitcoin(0) {
+	//std::cout << "Bitcoin constructor called" << std::endl;
+}
 
-/*_____________________________________ OPERATOR OVERLOADS ______________________________________*/
+Bitcoin::Bitcoin(std::string coin, int n) {
+	bool foundPoint = false;
+	if(coin[0] == '-')
+		throw ExceptionNegativedNumber();
+	if (coin.empty())
+		throw ExceptionInvalidNumber();
+	for (size_t i = 0; i < coin.size(); ++i) 
+	{
+		if (!std::isdigit(static_cast<unsigned char>(coin[i])))
+		{
+			if (coin[i] == '.') {
+				if (foundPoint)
+					throw ExceptionInvalidNumber();
+				foundPoint = true;
+			} else
+				throw ExceptionInvalidNumber();
+		}
+	}
+	float aux = static_cast<float>(atof(coin.c_str()));
+	if(n == 1 && aux <= 1000 && aux >= 0 )
+		this->bitcoin = aux;
+	else if(n == 0)
+		this->bitcoin = aux;
+	else if(aux > 1000)
+		throw ExceptionLargeNumber();
+}
 
-Bitcoin &Bitcoin::operator=(Bitcoin const &cpy) {
-	this->months = cpy.months;
-	this->csvDataBase = cpy.csvDataBase;
+
+std::ostream& operator<<(std::ostream& stout, const Bitcoin& Bitcoin) {
+	stout << Bitcoin.getBitcoin();
+	return stout;
+}
+
+Bitcoin& Bitcoin::operator=(const Bitcoin &other) {
+	//std::cout << "Bitcoin copy assignment operator called" << std::endl;
+	this->bitcoin = other.bitcoin;
 	return *this;
 }
 
-/*__________________________________________ FUNCTIONS __________________________________________*/
+Bitcoin::Bitcoin(const Bitcoin &cp) {
+	//std::cout << "Bitcoin copy constructor called" << std::endl;
+	*this = cp;
+}
 
-void Bitcoin::validDataBase() {
-	std::map<std::string, float>::iterator dataIt = csvDataBase.begin();
-	for (; dataIt != csvDataBase.end(); dataIt++) {
-		if (validDate(dataIt->first) == false) throw std::logic_error(CSVFAIL);
-		if (dataIt->second < 0) throw std::logic_error(CSVFAIL);
+float	Bitcoin::getBitcoin() const {
+	return this->bitcoin;
+}
+
+const int Date::DaysMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+Date::~Date() {
+	//std::cout << "Date Destructor called" << std::endl;
+}
+
+Date::Date( void ): year(0), month(0), day(0) {
+	//std::cout << "Date Constructor called" << std::endl;
+}
+
+Date::Date(std::string date) {
+	if (date.length() != 10)
+		throw ExceptionInvalidDate();
+	for (int i = 0; i < 10; ++i) {
+		if ((i == 4 || i == 7) && date[i] != '-')
+			throw ExceptionInvalidDate();
+		else if ((i != 4 && i != 7) && !isdigit(date[i]))
+			throw ExceptionInvalidDate();
 	}
+	int _year = atoi(date.substr(0, 4).c_str());
+	int _month = atoi(date.substr(5, 2).c_str());
+	int _day = atoi(date.substr(8, 2).c_str());
+	if (_month == 0 || _month > 12 || _day == 0 || _day > DaysMonth[_month - 1])
+		throw ExceptionInvalidDate();
+	this->year = _year;
+	this->month = _month;
+	this->day = _day;
 }
 
-void Bitcoin::isInputCorrect(char **argv) {
-	std::string inputFile = argv[1];
-	if (inputFile.find(".csv") == std::string::npos || inputFile.length() < 5)
-		throw std::logic_error(WRONGEXT);
-	chechkInputFile(inputFile);
+bool Date::operator<(const Date& other) const {
+	if (this->year > other.year){
+		return false;}
+	if (this->year < other.year){
+		return true;}
+	if (this->month > other.month){
+		return false;}
+	if (this->month < other.month){
+		return true;}
+	return this->day > other.day;
 }
 
-void Bitcoin::chechkInputFile(std::string inputFile) {
-	std::string line, date, value;
-	std::ifstream input("./" + inputFile);
-	if (input.is_open()) {
-		std::getline(input, line);
-		if (line.compare("date | value") != 0) throw std::logic_error("invalid file header");
-		return input.close();
-	}
+std::ostream& operator<<(std::ostream& stout, const Date& Date) {
+	stout << Date.getYear() << "-" << Date.getMonth() << "-" << Date.getDay();
+	return stout;
 }
 
-void Bitcoin::exchange(std::string inputFile) {
-	std::string line;
-	std::ifstream input("./" + inputFile);
-	if (input.is_open()) {
-		int i = 0;
-		while (std::getline(input, line))
-			if (i++ > 0)
-				if (validData(line) == true) {
-					std::string date = line.substr(0, line.find(" "));
-					float coins = std::atof(line.substr(line.find("|") + 2).c_str());
-					float value = getExchangeRate(date);
-					if (value != -42)
-						std::cout << date << " => " << coins << " = " << std::fixed
-								  << std::setprecision(2) << coins * value << std::endl;
-				}
-		return input.close();
-	}
+Date& Date::operator=(const Date &other) {
+	//std::cout << "Date copy assignment operator called" << std::endl;
+	this->year = other.year;
+	this->month = other.month;
+	this->day = other.day;
+	return *this;
 }
 
-bool Bitcoin::validData(std::string line) {
-	std::string date = line.substr(0, line.find(" ")), value;
-	if (line.find("|") != std::string::npos) value = line.substr(line.find("|") + 2);
-	if (line.find("|") == std::string::npos) value = "-42";
-	if (validDate(date) == false || validValue(value) == false) return false;
-	return true;
+Date::Date(const Date &cp) {
+	//std::cout << "Date copy constructor called" << std::endl;
+	*this = cp;
 }
 
-std::string Bitcoin::saveDate(std::string line) const { return line.substr(0, line.find(",")); }
-
-float Bitcoin::saveRate(std::string line) const {
-	if (line.find(",") != std::string::npos && line[line.size() - 1] != ',')
-		return std::stof(line.substr(line.find(",") + 1));
-	else
-		throw std::logic_error(CSVFAIL);
-	return -42;
-}
-
-bool Bitcoin::validDate(std::string line) {
-	std::string date = line.substr(0, line.find(" "));
-	std::string year = date.substr(0, date.find("-"));
-	std::string month = date.substr(5, 2);
-	std::string day = date.substr(8, 2);
-	std::stringstream yy(year), mm(month), dd(day);
-	int int_Y, int_M, int_D;
-	yy >> int_Y, mm >> int_M, dd >> int_D;
-
-	if (int_Y < 1970 || int_Y > 2042) return std::cout << WRONGYEAR << std::endl, false;
-	if (validMonth(month) == false) return std::cout << WRONGMONTH << std::endl, false;
-	if (validDay(day, month) == false) return std::cout << WRONGDAY << std::endl, false;
-	return true;
-}
-
-bool Bitcoin::validMonth(std::string month) {
-	std::map<int, int>::iterator monthIt = months.begin();
-	if (month[0] == '0' && month.length() == 2) month = month.substr(1);
-	for (; monthIt != months.end(); monthIt++)
-		if (monthIt->first == std::atoi(month.c_str())) return true;
-	return false;
-}
-
-bool Bitcoin::validDay(std::string day, std::string month) {
-	std::map<int, int>::iterator monthIt = months.begin();
-	if (day[0] == '0' && day.length() == 2) day = day.substr(1);
-	if (month[0] == '0' && month.length() == 2) month = month.substr(1);
-	for (; monthIt != months.end(); monthIt++)
-		if (monthIt->first == std::atoi(month.c_str()) && std::atoi(day.c_str()) > 0 &&
-			monthIt->second >= std::atoi(day.c_str()))
-			return true;
-	return false;
-}
-
-bool Bitcoin::validValue(std::string line) {
-	std::string strValue = line.substr(line.find("|") + 1);
-	std::stringstream numValue(strValue);
-	float num;
-	numValue >> num;
-	if (num == -42) return std::cout << INVALID << std::endl, false;
-	if (num < 0) return std::cout << NOTPOS << std::endl, false;
-	if (num > 1000) return std::cout << TOOBIG << std::endl, false;
-	return true;
-}
-
-float Bitcoin::getExchangeRate(std::string date) {
-	std::map<std::string, float>::iterator dataBase = csvDataBase.begin();
-	for (; dataBase != csvDataBase.end(); dataBase++)
-		if (dataBase->first.compare(date) == 0) return dataBase->second;
-	dataBase = csvDataBase.lower_bound(date);
-	if (dataBase == csvDataBase.begin()) return std::cout << NODATAONDATE << std::endl, -42;
-	dataBase--;
-	return dataBase->second;
-}
-
-/*___________________________________________ SETTERS ___________________________________________*/
-
-void Bitcoin::setMonths() {
-	months.insert(std::make_pair(1, 31));
-	months.insert(std::make_pair(2, 28));
-	months.insert(std::make_pair(3, 31));
-	months.insert(std::make_pair(4, 30));
-	months.insert(std::make_pair(5, 31));
-	months.insert(std::make_pair(6, 30));
-	months.insert(std::make_pair(7, 31));
-	months.insert(std::make_pair(8, 31));
-	months.insert(std::make_pair(9, 30));
-	months.insert(std::make_pair(10, 31));
-	months.insert(std::make_pair(11, 30));
-	months.insert(std::make_pair(12, 31));
-}
+int	Date::getDay() const { return this->day; }
+int	Date::getMonth() const { return this->month; }
+int	Date::getYear() const { return this->year; }
