@@ -1,4 +1,4 @@
-#include "../inc/RPN.hpp"
+#include "RPN.hpp"
 
 RPN::~RPN() {
     //std::cout << "RPN destructor called" << std::endl;

@@ -1,14 +1,12 @@
-#include "../inc/BitcoinExchange.hpp"
+#include "BitcoinExchange.hpp"
 
-int fk_space(std::string str, int i, int size, int csv)
-{
+int fk_space(std::string str, int i, int size, int csv) {
 	while((i < size) && ((str[i] == 32) || (str[i] == csv)))
 		i++;
 	return i;
 }
 
-void ft_parser_data(std::string str, int csv, std::string &first, std::string &second)
-{
+void ft_parser_data(std::string str, int csv, std::string &first, std::string &second) {
 	int size = str.size();
 	int i = 0, start;
 
@@ -22,33 +20,29 @@ void ft_parser_data(std::string str, int csv, std::string &first, std::string &s
 	second = str.substr(i);
 }
 
-int main(int argc, char *argv[])
-{
-	if(argc < 2)
-	{
+int main(int argc, char *argv[]) {
+	if(argc < 2) {
 		std::cerr << "Error: cannot open data file" << std::endl;
 		return 1; 
 	}
 	std::ifstream	fd1("./data.csv");
 	std::ifstream	fd2(argv[1]);
-	if(!fd1.is_open() || !fd2.is_open())
-	{
+	if(!fd1.is_open() || !fd2.is_open()) {
 		std::cerr << "Error: cannot open data file" << std::endl;
 		return 1;
 	}
 	std::string str;
-	std::map<Date, Bitcoin> BddMap;
+	std::map<Bitcoin::Date, Bitcoin> BddMap;
 	std::string dateStr, valueStr;
 	std::getline(fd1, str);
-	while (std::getline(fd1, str))
-	{
+	while (std::getline(fd1, str)) {
 		ft_parser_data(str, ',', dateStr, valueStr);
 		try {
-			Date fecha1(dateStr);
+			Bitcoin::Date fecha1(dateStr);
 			Bitcoin coin1(valueStr, 0);
 			BddMap.insert(std::make_pair(fecha1, coin1));
 		}
-		catch (const Date::ExceptionInvalidDate& e) {
+		catch (const Bitcoin::Date::ExceptionInvalidDate& e) {
 			std::cout << e.what() << " => " << dateStr << std::endl;
 		}
 		catch (const std::exception& e) {
@@ -58,17 +52,16 @@ int main(int argc, char *argv[])
 	fd1.close();
 
 	std::getline(fd2, str);
-	while (std::getline(fd2, str))
-	{
+	while (std::getline(fd2, str)) {
 		ft_parser_data(str, '|', dateStr, valueStr);
 		try {
-			Date fecha2(dateStr);
+			Bitcoin::Date fecha2(dateStr);
 			Bitcoin coin2(valueStr, 1);
-			std::map<Date, Bitcoin>::iterator it = BddMap.lower_bound(fecha2);
+			std::map<Bitcoin::Date, Bitcoin>::iterator it = BddMap.lower_bound(fecha2);
 			std::cout << fecha2 << " => " << coin2 << " = " << 
 			(it->second.getBitcoin() * coin2.getBitcoin()) << std::endl;
 		}
-		catch (const Date::ExceptionInvalidDate& e) {
+		catch (const Bitcoin::Date::ExceptionInvalidDate& e) {
 			std::cout << e.what() << " => " << dateStr << std::endl;
 		}
 		catch (const std::exception& e) {

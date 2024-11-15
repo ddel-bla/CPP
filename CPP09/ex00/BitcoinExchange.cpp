@@ -1,4 +1,4 @@
-#include "../inc/BitcoinExchange.hpp"
+#include "BitcoinExchange.hpp"
 
 Bitcoin::~Bitcoin() {
 	//std::cout << "Bitcoin destructor called" << std::endl;
@@ -16,8 +16,7 @@ Bitcoin::Bitcoin(std::string coin, int n) {
 		throw ExceptionInvalidNumber();
 	for (size_t i = 0; i < coin.size(); ++i) 
 	{
-		if (!std::isdigit(static_cast<unsigned char>(coin[i])))
-		{
+		if (!std::isdigit(static_cast<unsigned char>(coin[i]))) {
 			if (coin[i] == '.') {
 				if (foundPoint)
 					throw ExceptionInvalidNumber();
@@ -35,7 +34,6 @@ Bitcoin::Bitcoin(std::string coin, int n) {
 		throw ExceptionLargeNumber();
 }
 
-
 std::ostream& operator<<(std::ostream& stout, const Bitcoin& Bitcoin) {
 	stout << Bitcoin.getBitcoin();
 	return stout;
@@ -52,21 +50,22 @@ Bitcoin::Bitcoin(const Bitcoin &cp) {
 	*this = cp;
 }
 
-float	Bitcoin::getBitcoin() const {
+float Bitcoin::getBitcoin() const {
 	return this->bitcoin;
 }
 
-const int Date::DaysMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+// Cambia la definición de DaysMonth a Bitcoin::Date::DaysMonth
+const int Bitcoin::Date::DaysMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-Date::~Date() {
+Bitcoin::Date::~Date() {
 	//std::cout << "Date Destructor called" << std::endl;
 }
 
-Date::Date( void ): year(0), month(0), day(0) {
+Bitcoin::Date::Date( void ): year(0), month(0), day(0) {
 	//std::cout << "Date Constructor called" << std::endl;
 }
 
-Date::Date(std::string date) {
+Bitcoin::Date::Date(std::string date) {
 	if (date.length() != 10)
 		throw ExceptionInvalidDate();
 	for (int i = 0; i < 10; ++i) {
@@ -85,24 +84,25 @@ Date::Date(std::string date) {
 	this->day = _day;
 }
 
-bool Date::operator<(const Date& other) const {
-	if (this->year > other.year){
-		return false;}
-	if (this->year < other.year){
-		return true;}
-	if (this->month > other.month){
-		return false;}
-	if (this->month < other.month){
-		return true;}
+bool Bitcoin::Date::operator<(const Date& other) const {
+	if (this->year > other.year) {
+		return false; }
+	if (this->year < other.year) {
+		return true; }
+	if (this->month > other.month) {
+		return false; }
+	if (this->month < other.month) {
+		return true; }
 	return this->day > other.day;
 }
 
-std::ostream& operator<<(std::ostream& stout, const Date& Date) {
+// Operador de salida para Bitcoin::Date
+std::ostream& operator<<(std::ostream& stout, const Bitcoin::Date& Date) {
 	stout << Date.getYear() << "-" << Date.getMonth() << "-" << Date.getDay();
 	return stout;
 }
 
-Date& Date::operator=(const Date &other) {
+Bitcoin::Date& Bitcoin::Date::operator=(const Date &other) {
 	//std::cout << "Date copy assignment operator called" << std::endl;
 	this->year = other.year;
 	this->month = other.month;
@@ -110,11 +110,11 @@ Date& Date::operator=(const Date &other) {
 	return *this;
 }
 
-Date::Date(const Date &cp) {
+Bitcoin::Date::Date(const Date &cp) {
 	//std::cout << "Date copy constructor called" << std::endl;
 	*this = cp;
 }
 
-int	Date::getDay() const { return this->day; }
-int	Date::getMonth() const { return this->month; }
-int	Date::getYear() const { return this->year; }
+int Bitcoin::Date::getDay() const { return this->day; }
+int Bitcoin::Date::getMonth() const { return this->month; }
+int Bitcoin::Date::getYear() const { return this->year; }

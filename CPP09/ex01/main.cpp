@@ -1,4 +1,4 @@
-#include "../inc/RPN.hpp"
+#include "RPN.hpp"
 
 int main(int argc, char *argv[])
 {
