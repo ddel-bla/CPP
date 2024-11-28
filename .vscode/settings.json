@@ -52,6 +52,12 @@
 		"iomanip": "cpp",
 		"list": "cpp",
 		"map": "cpp",
-		"set": "cpp"
+		"set": "cpp",
+		"charconv": "cpp",
+		"chrono": "cpp",
+		"ratio": "cpp",
+		"format": "cpp",
+		"span": "cpp",
+		"variant": "cpp"
 	}
 }
