@@ -7,7 +7,7 @@ FragTrap::FragTrap() : ClapTrap("FragTrap") {
 	std::cout << FT << name << CONSTRUCTOR << std::endl;
 }
 
-FragTrap::FragTrap(std::string name) : ClapTrap(name) {
+FragTrap::FragTrap(std::string newname) : ClapTrap(newname) {
 	HitPoints = 100;
 	EnergyPoints = 100;
 	AttackDamage = 30;

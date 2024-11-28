@@ -33,7 +33,7 @@
 class ClapTrap {
 	public:
 		ClapTrap();
-		ClapTrap(std::string const &name);
+		ClapTrap(std::string const &newname);
 		ClapTrap(ClapTrap const &rhs);
 		~ClapTrap();
 

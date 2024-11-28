@@ -1,4 +1,4 @@
-#include "../inc/FragTrap.hpp"
+#include "../inc/DiamondTrap.hpp"
 
 static void InputCheck(int argc, char **argv) {
 	(void)argv;
@@ -34,6 +34,10 @@ int main(int argc, char **argv) {
 	fragD.beRepaired(10);
 	fragD.highFivesGuys();
 	std::cout << std::endl;
+	std::cout << std::endl;
+
+	DiamondTrap diaTrap("D");
+	diaTrap.print();
 
 	return  (0);
 }
