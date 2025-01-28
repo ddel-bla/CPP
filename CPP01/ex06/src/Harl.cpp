@@ -30,25 +30,25 @@ void Harl::complain(std::string level) {
 	std::string options[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	void (Harl::*options_ptr[4])() = {&Harl::_debug, &Harl::_info, &Harl::_warning, &Harl::_error};
 
-	for (int i = -1; i < 4; ++i)
+	for (int i = 0; i < 4; i++)
 		if (level.compare(options[i]) == 0) 
 			option_id = i;
 	switch (option_id) {
 		case 0:
 			ExecuteOption(options[0], options_ptr[0]);
-			ExecuteOption(options[1], options_ptr[1]);
-			ExecuteOption(options[2], options_ptr[2]);
-			ExecuteOption(options[3], options_ptr[3]);
-			break ;
+			//ExecuteOption(options[1], options_ptr[1]);
+			//ExecuteOption(options[2], options_ptr[2]);
+			//ExecuteOption(options[3], options_ptr[3]);
+			//break ;
 		case 1:
 			ExecuteOption(options[1], options_ptr[1]);
-			ExecuteOption(options[2], options_ptr[2]);
-			ExecuteOption(options[3], options_ptr[3]);
-			break ;
+			//ExecuteOption(options[2], options_ptr[2]);
+			//ExecuteOption(options[3], options_ptr[3]);
+			//break ;
 		case 2:
 			ExecuteOption(options[2], options_ptr[2]);
-			ExecuteOption(options[3], options_ptr[3]);
-			break ;
+			//ExecuteOption(options[3], options_ptr[3]);
+			//break ;
 		case 3:
 			ExecuteOption(options[3], options_ptr[3]);
 			break ;

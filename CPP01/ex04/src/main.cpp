@@ -1,12 +1,12 @@
 #include "../inc/loserSed.hpp"
 
 int main(int argc, char **argv) {
-	std::ifstream ifs;
-	std::ofstream ofs;
-	std::string infile = argv[1];
 
 	if (is_input_good(argc, argv) == false) 
 		return (1);
+	std::ifstream ifs;
+	std::ofstream ofs;
+	std::string infile = argv[1];
 	if (fstream_setup(infile, ifs, ofs) == false)
 		return (1);
 	else
